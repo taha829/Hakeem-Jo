@@ -32,9 +32,11 @@ import {
   Calendar,
   Search,
   RefreshCw,
-  UserPlus
+  UserPlus,
+  Menu
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -50,6 +52,7 @@ const Index = () => {
   const [upcomingAppointmentsList, setUpcomingAppointmentsList] = useState<any[]>([]);
   const [isDashboardLoading, setIsDashboardLoading] = useState(true);
   const [patientSearchTerm, setPatientSearchTerm] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const filteredContacts = (contacts || []).filter((c: any) =>
     (c.name?.toLowerCase().includes(patientSearchTerm.toLowerCase())) ||
@@ -118,8 +121,8 @@ const Index = () => {
 
   return (
     <div className="flex h-screen bg-background overflow-hidden" dir="rtl">
-      {/* Sidebar Area */}
-      <aside className="w-80 flex-shrink-0 border-l border-border/50 bg-card/50 backdrop-blur-xl z-50">
+      {/* Sidebar Area (Desktop) */}
+      <aside className="hidden md:block w-80 flex-shrink-0 border-l border-border/50 bg-card/50 backdrop-blur-xl z-50">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       </aside>
 
@@ -128,13 +131,31 @@ const Index = () => {
         <Header
           onNavigate={(path) => navigate(path)}
           onTabChange={(tab) => setActiveTab(tab)}
+          mobileNav={
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-6 w-6 text-primary" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="p-0 w-80 border-l border-border/50">
+                <Sidebar
+                  activeTab={activeTab}
+                  setActiveTab={(tab) => {
+                    setActiveTab(tab);
+                    setIsMobileMenuOpen(false);
+                  }}
+                />
+              </SheetContent>
+            </Sheet>
+          }
         />
 
         {/* Scrollable Content */}
-        <main className="flex-1 overflow-y-auto p-8 scrollbar-hide">
+        <main className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-hide">
           {activeTab === 'dashboard' && (
             <div className="space-y-6 animate-fade-in pb-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 <div style={{ animationDelay: '0s' }}>
                   <MedicalStatsCard
                     title="مرضى اليوم"
@@ -192,7 +213,7 @@ const Index = () => {
                 onViewAll={() => setActiveTab('appointments')}
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <Card className="p-6 border-border/50 bg-card/50 backdrop-blur-sm hover:shadow-lg transition-all cursor-pointer" onClick={() => setActiveTab('whatsapp-bot')}>
                   <div className="flex items-center gap-4">
                     <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
@@ -224,7 +245,7 @@ const Index = () => {
             <div className="space-y-6 animate-fade-in pb-10">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
-                  <h2 className="text-3xl font-display font-black tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">إدارة المرضى</h2>
+                  <h2 className="text-2xl md:text-3xl font-display font-black tracking-tight bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">إدارة المرضى</h2>
                   <p className="text-muted-foreground mt-1">إجمالي المرضى المسجلين: {(contacts || []).length}</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -237,7 +258,7 @@ const Index = () => {
                     <RefreshCw className={cn("h-4 w-4", syncContacts.isPending && "animate-spin")} />
                     مزامنة من واتساب
                   </Button>
-                  <Button className="gradient-primary" onClick={exportContacts}>
+                  <Button className="gradient-primary w-full md:w-auto" onClick={exportContacts}>
                     تصدير البيانات
                   </Button>
                 </div>
@@ -275,7 +296,7 @@ const Index = () => {
                   </Button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                   {filteredContacts.map((contact: any) => (
                     <PatientCard
                       key={contact.id}

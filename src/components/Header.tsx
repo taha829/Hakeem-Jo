@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     User,
@@ -31,9 +31,10 @@ import { ar } from 'date-fns/locale';
 interface HeaderProps {
     onNavigate?: (path: string) => void;
     onTabChange?: (tab: string) => void;
+    mobileNav?: ReactNode;
 }
 
-const Header = ({ onNavigate, onTabChange }: HeaderProps) => {
+const Header = ({ onNavigate, onTabChange, mobileNav }: HeaderProps) => {
     const { user, signOut } = useAuth();
     const navigate = useNavigate();
     const { theme, toggleTheme } = useTheme();
@@ -82,10 +83,15 @@ const Header = ({ onNavigate, onTabChange }: HeaderProps) => {
 
     return (
         <header className="sticky top-0 z-50 w-full bg-background/40 backdrop-blur-2xl border-b border-border/5">
-            <div className="container flex h-16 items-center justify-between px-6 mx-auto max-w-7xl">
+            <div className="container flex h-16 items-center justify-between px-4 sm:px-6 mx-auto max-w-7xl">
 
-                {/* 1. Actions & Unified Profile (Moved to Right side in RTL) */}
-                <div className="flex items-center gap-4">
+                {/* 1. Actions & Unified Profile (Right side in RTL) */}
+                <div className="flex items-center gap-2 sm:gap-4">
+                    {/* Mobile Nav Trigger Only */}
+                    <div className="md:hidden">
+                        {mobileNav}
+                    </div>
+
                     {/* Notification Bell */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -159,7 +165,7 @@ const Header = ({ onNavigate, onTabChange }: HeaderProps) => {
                         variant="ghost"
                         size="icon"
                         onClick={toggleTheme}
-                        className="rounded-full h-10 w-10 hover:bg-muted/50 transition-all active:scale-90 relative group"
+                        className="rounded-full h-10 w-10 hover:bg-muted/50 transition-all active:scale-90 relative group hidden sm:flex"
                     >
                         {theme === 'dark' ? <Sun className="h-5 w-5 text-orange-400" /> : <Moon className="h-5 w-5 text-primary" />}
                         <span className="absolute -bottom-1 -left-1 flex h-2 w-2">
@@ -168,15 +174,15 @@ const Header = ({ onNavigate, onTabChange }: HeaderProps) => {
                         </span>
                     </Button>
 
-                    <div className="h-8 w-[1px] bg-border/10" />
+                    <div className="h-8 w-[1px] bg-border/10 hidden sm:block" />
 
                     {/* Elite Unified Profile Pill */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <button className="flex items-center gap-3 pl-4 pr-1.5 py-1.5 rounded-full bg-muted/20 hover:bg-muted/40 transition-all duration-500 group outline-none border border-border/5 hover:border-border/20 shadow-sm active:scale-95">
-                                <ChevronDown className="h-4 w-4 text-muted-foreground/30 group-hover:text-foreground transition-colors" />
+                            <button className="flex items-center gap-2 sm:gap-3 pl-1 sm:pl-4 pr-1 sm:pr-1.5 py-1 sm:py-1.5 rounded-full bg-muted/20 hover:bg-muted/40 transition-all duration-500 group outline-none border border-border/5 hover:border-border/20 shadow-sm active:scale-95">
+                                <ChevronDown className="h-4 w-4 text-muted-foreground/30 group-hover:text-foreground transition-colors hidden sm:block" />
 
-                                <div className="flex flex-col items-start mr-1 text-right hidden sm:flex">
+                                <div className="flex flex-col items-start mr-1 text-right hidden lg:flex">
                                     <span className="text-[10px] text-muted-foreground/60 font-bold uppercase tracking-tighter mb-0.5">
                                         مرحباً بك
                                     </span>
@@ -187,7 +193,7 @@ const Header = ({ onNavigate, onTabChange }: HeaderProps) => {
 
                                 <div className="relative">
                                     <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-500 to-primary rounded-full blur opacity-20 group-hover:opacity-40 transition duration-500" />
-                                    <div className="relative h-9 w-9 rounded-full bg-orange-600 flex items-center justify-center text-white overflow-hidden shadow-xl ring-2 ring-background">
+                                    <div className="relative h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-orange-600 flex items-center justify-center text-white overflow-hidden shadow-xl ring-2 ring-background">
                                         {user?.avatar ?
                                             <img
                                                 src={user.avatar.startsWith('http') ? user.avatar : `${BASE_URL}${user.avatar}`}
@@ -249,7 +255,7 @@ const Header = ({ onNavigate, onTabChange }: HeaderProps) => {
                     </DropdownMenu>
                 </div>
 
-                {/* 2. Professional Real-time Dynamic Clock (Center) */}
+                {/* 2. Professional Real-time Dynamic Clock (Center - Hidden on mobile) */}
                 <div className="hidden lg:flex items-center gap-6 bg-muted/20 px-6 py-1.5 rounded-2xl border border-border/10 shadow-inner">
                     <div className="flex items-center gap-2 text-primary/80">
                         <Clock className="h-4 w-4" />
