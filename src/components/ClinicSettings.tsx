@@ -126,25 +126,25 @@ export default function ClinicSettings() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-white/50 to-blue-100/50 dark:from-blue-950/20 dark:via-background/50 dark:to-blue-900/20 -z-10 rounded-3xl" />
 
             {/* Header */}
-            <div className="flex items-center justify-between p-1">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-1 gap-4">
                 <div>
                     <h2 className="text-2xl font-display font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">الإعدادات</h2>
                     <p className="text-sm text-blue-600/80 font-medium">إعدادات العيادة والهوية البصرية</p>
                 </div>
-                <Button onClick={handleSave} disabled={loading} className="gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 transition-all hover:scale-105 active:scale-95">
+                <Button onClick={handleSave} disabled={loading} className="w-full sm:w-auto gap-2 bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 transition-all hover:scale-105 active:scale-95">
                     <Save className="h-4 w-4" />
                     {loading ? 'جاري الحفظ...' : 'حفظ التغييرات'}
                 </Button>
             </div>
 
             {/* Visual Branding Section */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <Card className="lg:col-span-2 p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
-                            <ImageIcon className="h-6 w-6" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                <Card className="lg:col-span-2 p-4 sm:p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-[1.5rem] sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
+                            <ImageIcon className="h-5 w-5 sm:h-6 sm:w-6" />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">الهوية البصرية</h3>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">الهوية البصرية</h3>
                     </div>
 
                     <div className="space-y-6">
@@ -173,8 +173,8 @@ export default function ClinicSettings() {
 
                         <div className="pt-6 border-t border-blue-100 dark:border-blue-800/50">
                             <Label className="block mb-3 text-blue-900 dark:text-blue-100 font-semibold">شعار العيادة</Label>
-                            <div className="flex items-center gap-6 bg-white/40 dark:bg-black/20 p-4 rounded-2xl border border-blue-100 dark:border-blue-800/50">
-                                <div className="h-28 w-28 rounded-2xl border-2 border-dashed border-blue-300 dark:border-blue-700 flex items-center justify-center bg-blue-50/50 dark:bg-blue-900/20 overflow-hidden relative group/img shadow-inner">
+                            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 bg-white/40 dark:bg-black/20 p-4 rounded-2xl border border-blue-100 dark:border-blue-800/50 text-center sm:text-right">
+                                <div className="h-24 w-24 sm:h-28 sm:w-28 shrink-0 rounded-2xl border-2 border-dashed border-blue-300 dark:border-blue-700 flex items-center justify-center bg-blue-50/50 dark:bg-blue-900/20 overflow-hidden relative group/img shadow-inner">
                                     {settings.clinic_logo ? (
                                         <img src={settings.clinic_logo.startsWith('http') ? settings.clinic_logo : `${BASE_URL}${settings.clinic_logo}`} alt="Logo Preview" className="h-full w-full object-cover transition-transform duration-700 group-hover/img:scale-110" />
                                     ) : (
@@ -186,18 +186,18 @@ export default function ClinicSettings() {
                                         </div>
                                     )}
                                 </div>
-                                <div className="space-y-3">
+                                <div className="space-y-3 w-full sm:w-auto">
                                     <Button
                                         variant="outline"
                                         size="sm"
-                                        className="gap-2 border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300"
+                                        className="w-full sm:w-auto gap-2 border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/40 text-blue-700 dark:text-blue-300"
                                         onClick={() => fileInputRef.current?.click()}
                                         disabled={uploading}
                                     >
                                         <Upload className="h-4 w-4" />
                                         رفع شعار جديد
                                     </Button>
-                                    <p className="text-xs text-muted-foreground">يفضل أن يكون الشعار بصيغة PNG وبخلفية شفافة</p>
+                                    <p className="text-[10px] sm:text-xs text-muted-foreground max-w-xs">يفضل أن يكون الشعار بصيغة PNG وبخلفية شفافة</p>
                                     <input
                                         type="file"
                                         ref={fileInputRef}
@@ -228,12 +228,12 @@ export default function ClinicSettings() {
             </div>
 
             {/* Clinic Information */}
-            <Card className="p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
-                <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
-                        <Building2 className="h-6 w-6" />
+            <Card className="p-4 sm:p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-[1.5rem] sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
+                        <Building2 className="h-5 w-5 sm:h-6 sm:w-6" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">معلومات التواصل</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">معلومات التواصل</h3>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -286,13 +286,13 @@ export default function ClinicSettings() {
             </Card>
 
             {/* Working Hours & Appointments */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
-                            <Clock className="h-6 w-6" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <Card className="p-4 sm:p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-[1.5rem] sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
+                            <Clock className="h-5 w-5 sm:h-6 sm:w-6" />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">ساعات العمل</h3>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">ساعات العمل</h3>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -319,12 +319,12 @@ export default function ClinicSettings() {
                     </div>
                 </Card>
 
-                <Card className="p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
-                            <Calendar className="h-6 w-6" />
+                <Card className="p-4 sm:p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-[1.5rem] sm:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group">
+                    <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
+                            <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">إعدادات المواعيد</h3>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">إعدادات المواعيد</h3>
                     </div>
 
                     <div className="space-y-4">
@@ -352,27 +352,27 @@ export default function ClinicSettings() {
             </div>
 
             {/* Auto-Reply Settings */}
-            <Card className="p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group bg-gradient-to-r from-white/60 to-blue-50/60 dark:from-black/60 dark:to-blue-900/20">
-                <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
+            <Card className="p-4 sm:p-6 border-white/40 dark:border-white/10 bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 group bg-gradient-to-r from-white/60 to-blue-50/60 dark:from-black/60 dark:to-blue-900/20">
+                <div className="flex flex-row items-center gap-4">
+                    <div className="p-3 shrink-0 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-500">
                         <MessageCircle className="h-6 w-6" />
                     </div>
-                    <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100">المساعد الذكي (AI)</h3>
-                        <p className="text-sm text-blue-600/80 font-medium">تفعيل الرد الآلي وحجز المواعيد عبر واتساب</p>
+                    <div className="flex-1 min-w-0">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100 truncate">الموظف الذكي</h3>
+                        <p className="text-[10px] sm:text-sm text-blue-600/80 font-medium line-clamp-1">تفعيل الرد الآلي وحجز المواعيد عبر واتساب</p>
                     </div>
                     <Switch
                         id="auto_reply_enabled"
                         checked={settings.auto_reply_enabled}
                         onCheckedChange={(checked) => updateSetting('auto_reply_enabled', checked)}
-                        className="data-[state=checked]:bg-blue-600 scale-110"
+                        className="data-[state=checked]:bg-blue-600 scale-100 sm:scale-110"
                     />
                 </div>
             </Card>
 
             {/* Save Button (Bottom) */}
-            <div className="flex justify-end pt-6">
-                <Button onClick={handleSave} disabled={loading} size="lg" className="gap-2 px-10 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white shadow-xl shadow-blue-600/20 transition-all hover:scale-105 active:scale-95 text-lg font-bold">
+            <div className="flex justify-center sm:justify-end pt-6">
+                <Button onClick={handleSave} disabled={loading} size="lg" className="w-full sm:w-auto gap-2 px-10 h-12 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white shadow-xl shadow-blue-600/20 transition-all hover:scale-105 active:scale-95 text-lg font-bold">
                     <Save className="h-5 w-5" />
                     {loading ? 'جاري الحفظ...' : 'حفظ كافة الإعدادات'}
                 </Button>

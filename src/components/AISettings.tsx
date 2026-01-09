@@ -127,29 +127,29 @@ export default function AISettings() {
 
     return (
         <div className="max-w-6xl mx-auto space-y-8 animate-fade-in pb-20">
-            <div className="flex items-center justify-between">
-                <div>
-                    <h2 className="text-3xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">هوية المساعد الذكي</h2>
-                    <p className="text-muted-foreground mt-1">خصص كيف يتحدث البوت مع عملائك ويعبر عن علامتك التجارية</p>
+            <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-4">
+                <div className="text-center sm:text-right">
+                    <h2 className="text-2xl sm:text-3xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">هوية الموظف الذكي</h2>
+                    <p className="text-muted-foreground mt-1 text-sm sm:text-base">خصص كيف يتحدث البوت مع عملائك ويعبر عن علامتك التجارية</p>
                 </div>
-                <div className="p-3 rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-glow">
-                    <Bot className="h-8 w-8" />
+                <div className="p-2 sm:p-3 rounded-2xl bg-primary/10 text-primary border border-primary/20 shadow-glow shrink-0">
+                    <Bot className="h-6 w-6 sm:h-8 sm:w-8" />
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8">
                 {/* AISettings Side (8 cols) */}
-                <div className="lg:col-span-8 space-y-8">
+                <div className="lg:col-span-8 space-y-4 sm:space-y-8">
                     {/* Bot Identity Card */}
                     <Card className="border-border/50 bg-card/50 backdrop-blur-xl shadow-xl overflow-hidden">
                         <CardHeader className="border-b border-border/10 bg-muted/30">
                             <div className="flex items-center justify-between">
                                 <div className="space-y-1">
-                                    <CardTitle className="flex items-center gap-2">
+                                    <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                                         <Bot className="h-5 w-5 text-primary" />
                                         تفعيل الذكاء الاصطناعي للهوية
                                     </CardTitle>
-                                    <CardDescription>اجعل البوت يتفاعل بذكاء بناءً على هوية شركتك</CardDescription>
+                                    <CardDescription className="text-xs sm:text-sm">اجعل البوت يتفاعل بذكاء بناءً على هوية شركتك</CardDescription>
                                 </div>
                                 <Switch
                                     checked={settings.ai_enabled === '1'}
@@ -254,11 +254,11 @@ export default function AISettings() {
                     <Card className="border-border/50 bg-card/50 backdrop-blur-xl shadow-xl">
                         <CardHeader className="border-b border-border/10 flex flex-row items-center justify-between bg-muted/10">
                             <div>
-                                <CardTitle className="flex items-center gap-2">
+                                <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                                     <Briefcase className="h-5 w-5 text-primary" />
                                     إدارة الخدمات والمنتجات الذكية
                                 </CardTitle>
-                                <CardDescription>أضف خدماتك ليقوم البوت "بتعلمها" والرد على العملاء بخصوصها فوراً</CardDescription>
+                                <CardDescription className="text-xs sm:text-sm">أضف خدماتك ليقوم البوت "بتعلمها" والرد على العملاء بخصوصها فوراً</CardDescription>
                             </div>
                         </CardHeader>
                         <CardContent className="p-6 space-y-6">
